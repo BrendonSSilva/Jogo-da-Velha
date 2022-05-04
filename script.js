@@ -13,37 +13,48 @@ let playing = false;
 reset()
 
 //events
-
+//reiniciar o jogo
 document.querySelector('.reset').addEventListener('click', reset);
+//adiciona qual função será executada nos espaços do X e O no jogo
 document.querySelectorAll('.item').forEach(item => {
     item.addEventListener('click', itemClick)
 })
 
 //functions
 function itemClick(e) {
+    //pegar o atributo de cada item clicado 
     let item = e.target.getAttribute('data-item');
-    if(playing && square[item] === ''){
+    //percorrer o square e marcar o espaço vazio clicado de acordo com a vez do jogador
+    if (playing && square[item] === '') {
         square[item] = player
         renderSquare()
         togglePlayer()
     }
 }
 
+//reiniciar o jogo
 function reset() {
+    //esvaziar o aviso de vencedor ou empate
     warning = '';
+    //definir aleatoriamente quem será o próximo a jogar
     let random = Math.floor(Math.random() * 2);
+    //se random for igual a 0, recebe X, se não, recebe O
     player = (random === 0) ? 'x' : 'o'
 
-    for(let i in square) {
+    //zerar o tabuleiro
+    //percorre cada um dos itens e zera todos
+    for (let i in square) {
         square[i] = ''
     }
 
+    //iniciar o jogo
     playing = true;
 
     renderSquare();
     renderInfo();
 }
 
+//percorrer o tabuleiro e verificar se em cada elemento tem algo preenchido, se não tiver, pode preencher.
 function renderSquare() {
     for (let i in square) {
         //com o data-item${i} eu pego o item especifico dali 
@@ -53,28 +64,38 @@ function renderSquare() {
 
     checkGame();
 }
+
+//informações do jogo (vez / vitória ou empate)
 function renderInfo() {
     document.querySelector('.vez').innerHTML = player
     document.querySelector('.resultado').innerHTML = warning
 }
-function togglePlayer(){
+
+//alternar o jogador
+function togglePlayer() {
+    //se for a vez de X, mude para O. se for a vez de O, mude para X
     player = (player === 'x') ? 'o' : 'x'
+    //exibir de quem é a vez
     renderInfo()
 }
-function checkGame(){
-    if(checkWinnerFor('x')){
+
+//verificar quem venceu ou se deu empate
+function checkGame() {
+    if (checkWinnerFor('x')) {
         warning = 'O "x" venceu'
         playing = false;
-    }else if(checkWinnerFor('o')){
+    } else if (checkWinnerFor('o')) {
         warning = 'O "o" venceu'
         playing = false;
-    }else if(isFull()){
+    } //conferir se tudo está preenchido para dar empate
+    else if (isFull()) {
         warning = 'Deu empate!'
         playing = false;
     }
 }
 
-function checkWinnerFor(player){
+//definir todas as possibilidade de vitória
+function checkWinnerFor(player) {
     let pos = [
         'a1,a2,a3',
         'b1,b2,b3',
@@ -83,28 +104,36 @@ function checkWinnerFor(player){
         'a1,b1,c1',
         'a2,b2,c2',
         'a3,b3,c3',
-        
+
         'a1,b2,c3',
         'c1,b2,a3',
     ];
 
-    for(let w in pos){
+    //verificar se o player preencheu alguma destas opções
+    for (let w in pos) {
+        //por estar separando os itens com vírgula, vou gerar um array com o split para verificar cada uma das possibilidades individualmente
         let pArray = pos[w].split(','); //a1, a2, a3... b1, b2, b3...
-        let hasWon = pArray.every(option=>square[option] === player) //simplificou um if que era apenas de true or false
 
-        if(hasWon){
-            return true; 
+        //every é uma função que roda no array. Esta condição será aplicada a todos os itens do array, se derem true, quer dizer que a condição foi satisfeita
+        //se o meu tabuleiro(square) estiver preenchido(option) por um jogador só (player), irá dar true.
+        let hasWon = pArray.every(option => square[option] === player) //simplificou um if que era apenas de true or false
+
+        //caso ache algum vencedor, retornar true
+        if (hasWon) {
+            return true;
         }
     }
 
+    //caso não ache nenhum vencedor, retornar false
     return false;
 }
-function isFull(){
-    for(let i in square){
+function isFull() {
+    for (let i in square) {
         //se algum lugar do square estiver vazio, não precisa executar a função
-        if(square[i] === ''){
-            return false; 
+        if (square[i] === '') {
+            return false;
         }
     }
+    //se todos os lugares estiverem preenchidos, executar a função
     return true;
 }
