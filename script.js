@@ -9,6 +9,8 @@ let square = {
 let player = '';
 let warning = '';
 let playing = false;
+let player1Win = 0
+let player2Win = 0
 
 reset()
 
@@ -69,6 +71,8 @@ function renderSquare() {
 function renderInfo() {
     document.querySelector('.vez').innerHTML = player
     document.querySelector('.resultado').innerHTML = warning
+    document.querySelector('.player1').innerHTML = player1Win
+    document.querySelector('.player2').innerHTML = player2Win
 }
 
 //alternar o jogador
@@ -78,15 +82,16 @@ function togglePlayer() {
     //exibir de quem é a vez
     renderInfo()
 }
-
 //verificar quem venceu ou se deu empate
 function checkGame() {
     if (checkWinnerFor('x')) {
         warning = 'O "x" venceu'
         playing = false;
+        player1Win++
     } else if (checkWinnerFor('o')) {
         warning = 'O "o" venceu'
         playing = false;
+        player2Win++
     } //conferir se tudo está preenchido para dar empate
     else if (isFull()) {
         warning = 'Deu empate!'
@@ -127,6 +132,7 @@ function checkWinnerFor(player) {
     //caso não ache nenhum vencedor, retornar false
     return false;
 }
+
 function isFull() {
     for (let i in square) {
         //se algum lugar do square estiver vazio, não precisa executar a função
@@ -137,3 +143,4 @@ function isFull() {
     //se todos os lugares estiverem preenchidos, executar a função
     return true;
 }
+
