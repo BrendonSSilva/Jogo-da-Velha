@@ -6,7 +6,7 @@ let square = {
     c1: '', c2: '', c3: ''
 }
 
-let player = '';
+let player = 'x';
 let warning = '';
 let playing = false;
 let player1Win = 0
@@ -40,11 +40,10 @@ function reset() {
     warning = '';
     //definir aleatoriamente quem será o próximo a jogar
     let random = Math.floor(Math.random() * 2);
-    //se random for igual a 0, recebe X, se não, recebe O
-    player = (random === 0) ? 'x' : 'o'
+    //definir proximo jogador de acordo com quem venceu. se der empate, definir aleatoriamente proximo jogador
+    player = (checkWinnerFor('x')) ? 'x' : (checkWinnerFor('o')) ? 'o' : player = (random === 0) ? 'x' : 'o'
 
     //zerar o tabuleiro
-    //percorre cada um dos itens e zera todos
     for (let i in square) {
         square[i] = ''
     }
