@@ -14,4 +14,4 @@ E por final, a verificação de quem venceu e quem será o próximo a jogar, foi
 <img src='images/img2.png'>
 <img src='images/img3.png'><br>
 
-Link: https://brendonssilva.github.io/Jogo-da-Velha/
+Link: https://brendonssilva.github.io/Jogo-da-Velha-Com-Placar/
