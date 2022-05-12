@@ -142,4 +142,3 @@ function isFull() {
     //se todos os lugares estiverem preenchidos, executar a função
     return true;
 }
-

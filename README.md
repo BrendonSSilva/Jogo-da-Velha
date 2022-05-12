@@ -8,6 +8,10 @@ E por final, a verificação de quem venceu e quem será o próximo a jogar, foi
 
 # Imagens do projeto
 
+(Link no final)<br>
+
 <img src='images/img1.png'>
 <img src='images/img2.png'>
-<img src='images/img3.png'>
+<img src='images/img3.png'><br>
+
+Link: https://brendonssilva.github.io/Jogo-da-Velha/
